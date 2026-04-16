@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeSensei — AI DSA Tutor</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <!-- CodeMirror -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+</head>
+<body>
+
+<!-- Animated fluid background -->
+<div class="bg-fluid">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="blob blob4"></div>
+</div>
+
+<div class="app-shell">
+
+    <!-- ── HEADER ── -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-icon">⟨/⟩</span>
+            <span class="logo-text">Code<strong>Sensei</strong></span>
+        </div>
+        <nav class="nav-tabs">
+            <button class="nav-btn active" data-tab="editor">Editor</button>
+            <button class="nav-btn" data-tab="chat">AI Tutor Chat</button>
+        </nav>
+        <div class="header-badge">
+            <span class="dot"></span> Qwen 2.5 : 3B
+        </div>
+    </header>
+
+    <!-- ── EDITOR TAB ── -->
+    <div class="tab-content active" id="tab-editor">
+        <div class="editor-layout">
+
+            <!-- Left: Code Editor -->
+            <div class="panel panel-editor">
+                <div class="panel-header">
+                    <span class="panel-title">Java Code Editor</span>
+                    <div class="editor-actions">
+                        <button class="btn-ghost" id="btn-clear">Clear</button>
+                        <button class="btn-ghost" id="btn-sample">Load Sample</button>
+                        <button class="btn-run" id="btn-run">
+                            <span id="run-label">▶ Run Code</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="editor-wrap">
+                    <textarea id="code-editor"></textarea>
+                </div>
+            </div>
+
+            <!-- Right: Output + Analysis -->
+            <div class="panel panel-output">
+
+                <!-- Output -->
+                <div class="output-section">
+                    <div class="panel-header">
+                        <span class="panel-title">Output</span>
+                        <span id="status-badge" class="status-badge hidden"></span>
+                    </div>
+                    <pre id="output-box" class="output-box">// Run your code to see output here...</pre>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="analysis-section" id="analysis-section">
+                    <div class="panel-header">
+                        <span class="panel-title">🤖 AI Analysis</span>
+                    </div>
+
+                    <!-- Tabs inside analysis -->
+                    <div class="analysis-tabs">
+                        <button class="atab active" data-atab="explanation">Explanation</button>
+                        <button class="atab" data-atab="mcq">MCQ Quiz</button>
+                    </div>
+
+                    <div class="atab-content active" id="atab-explanation">
+                        <div id="explanation-box" class="analysis-box">
+                            <p class="placeholder-text">Run code with an error to get an AI explanation.</p>
+                        </div>
+                    </div>
+
+                    <div class="atab-content" id="atab-mcq">
+                        <div id="mcq-box" class="analysis-box">
+                            <p class="placeholder-text">MCQs will appear here after an error is detected.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ── CHAT TAB ── -->
+    <div class="tab-content" id="tab-chat">
+        <div class="chat-layout">
+            <div class="panel panel-chat">
+                <div class="panel-header">
+                    <span class="panel-title">💬 AI Tutor — Ask Anything</span>
+                    <button class="btn-ghost" id="btn-clear-chat">Clear Chat</button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-msg bot">
+                        <div class="msg-avatar">AI</div>
+                        <div class="msg-bubble">
+                            Hello! I'm your DSA & Java tutor powered by Qwen 2.5. Ask me anything — errors, concepts, algorithms, or code reviews! 🚀
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-row">
+                    <textarea id="chat-input" placeholder="Ask about recursion, arrays, OOP, DP, graphs..." rows="2"></textarea>
+                    <button class="btn-run" id="btn-send">Send</button>
+                </div>
+                <!-- Quick prompts -->
+                <div class="quick-prompts">
+                    <span class="qp-label">Quick:</span>
+                    <button class="qp-btn">Explain recursion</button>
+                    <button class="qp-btn">What is NullPointerException?</button>
+                    <button class="qp-btn">How does DP work?</button>
+                    <button class="qp-btn">Explain OOP in Java</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay hidden" id="loading-overlay">
+    <div class="loader-card">
+        <div class="spinner"></div>
+        <p id="loading-msg">Compiling & Analyzing...</p>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
